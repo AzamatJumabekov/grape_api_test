@@ -16,21 +16,21 @@ ActiveRecord::Schema.define(version: 2020_10_10_120000) do
   enable_extension "plpgsql"
 
   create_table "posts", force: :cascade do |t|
-    t.string "title"
-    t.string "ip"
-    t.string "content"
+    t.string "title", null: false
+    t.string "content", null: false
+    t.cidr "ip", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "ratings", force: :cascade do |t|
-    t.integer "value", limit: 2
+    t.integer "value", limit: 2, null: false
     t.bigint "post_id", null: false
     t.index ["post_id"], name: "index_ratings_on_post_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "login"
+    t.string "login", null: false
   end
 
   add_foreign_key "posts", "users"
