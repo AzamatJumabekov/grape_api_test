@@ -1,7 +1,7 @@
 require_relative '../../grape_helper'
 
-describe '/api' do
-  describe '/cash_balances' do
+describe '/api/v1' do
+  describe '/users' do
     let!(:users) { create_list(:user, 5) }
     let(:expected) { users.as_json }
 
