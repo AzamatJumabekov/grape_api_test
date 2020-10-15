@@ -4,4 +4,18 @@ source "https://rubygems.org"
 
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
-# gem "rails"
+gem 'grape'
+gem 'grape-swagger'
+gem 'activerecord', '~> 6.0', '>= 6.0.3.4'
+gem 'otr-activerecord'
+gem 'pg'
+gem 'rack'
+gem 'puma'
+
+# refactor this, add environment groups
+
+gem 'pry'
+gem 'rack-test'
+gem 'rspec'
+gem 'database_cleaner'
+gem 'factory_bot'
