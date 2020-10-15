@@ -1,0 +1,13 @@
+require 'grape'
+require 'grape-swagger'
+require 'otr-activerecord'
+
+ENV['RACK_ENV'] ||= 'development'
+ROOT_PATH ||= Pathname.new(::File.expand_path('../../', __FILE__)).freeze
+OTR::ActiveRecord.configure_from_file! "config/database.yml"
+
+require_relative 'application/app'
+
+Dir["#{ROOT_PATH}/app/entities/**/*.rb"].each { |f| require f }
+Dir["#{ROOT_PATH}/app/services/**/*.rb"].each { |f| require f }
+Dir["#{ROOT_PATH}/app/api/**/*.rb"].each { |f| require f }
