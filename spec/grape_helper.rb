@@ -6,7 +6,7 @@ require 'factory_bot'
 require 'database_cleaner'
 require 'pry'
 
-Dir[App.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
+Dir[ROOT_PATH.join('spec/support/**/*.rb')].sort.each { |f| require f }
 
 def app
   Application
