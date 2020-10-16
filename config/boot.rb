@@ -1,6 +1,12 @@
 require 'grape'
 require 'grape-swagger'
 require 'otr-activerecord'
+require 'multi_json'
+require 'multi_json/adapters/oj'
+MultiJson.adapter = MultiJson::Adapters::Oj
+
+TXT = File.read('/home/aza/response.json')
+
 
 ENV['RACK_ENV'] ||= 'development'
 ROOT_PATH ||= Pathname.new(::File.expand_path('../../', __FILE__)).freeze

@@ -11,6 +11,8 @@ gem 'otr-activerecord'
 gem 'pg'
 gem 'rack'
 gem 'puma'
+gem 'oj'
+gem 'multi_json', '~> 1.15'
 
 # refactor this, add environment groups
 
