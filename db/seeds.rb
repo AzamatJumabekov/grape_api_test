@@ -23,3 +23,11 @@ post_ids = Post.pluck(:id)
 entities_to_create(Rating, 20_000).times do
   ::Ratings::Create.new({value: rand(1..5), post_id: post_ids.sample}).call
 end
+
+
+  Post.create(
+    title: SecureRandom.hex(4),
+    ip: "255.255.1.1",
+    content: SecureRandom.hex(50).scan(/.{1,6}/).join(' '),
+    user_id: 1
+  )
