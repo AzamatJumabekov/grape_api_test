@@ -1,4 +1,5 @@
 /.bundle
+/tmp/*
 !/tmp/.keep
-!/tmp/pids.keep
-/tmp
+!/tmp/pids
+!/tmp/pids/.keep
