@@ -12,6 +12,8 @@ def app
   Application
 end
 
+ActiveRecord::Base.logger = nil
+
 RSpec.configure do |config|
   config.include Rack::Test::Methods
   config.include FactoryBot::Syntax::Methods
