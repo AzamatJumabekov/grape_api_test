@@ -19,8 +19,8 @@ module V1
 
     post '/' do
       user = User.find_or_create_by(login: params.delete(:author))
-      error!({ error: user.errors.full_messages }, 404) && return if user.errors.any?
 
+      error!({ error: user.errors.full_messages }, 404) && return if user.errors.any?
       result = user.posts.create(declared(params))
       if result.errors.any?
         error!({ error: result.errors.full_messages }, 422)
@@ -33,7 +33,7 @@ module V1
       query = <<-SQL
         SELECT
           ip,
-          json_agg(users.login)
+          json_agg(users.login) as authors
         FROM posts as p
         INNER JOIN users on users.id = p.user_id
         GROUP BY p.ip
@@ -42,9 +42,9 @@ module V1
       SQL
 
       result = ActiveRecord::Base.connection.execute(query)
-      result.values.map do |ip, logins|
-        { ip => JSON[logins] }
-      end
+      # result.values.map do |ip, logins|
+      #   { ip => JSON[logins] }
+      # end
     end
   end
 end

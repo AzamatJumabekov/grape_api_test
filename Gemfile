@@ -19,3 +19,4 @@ gem 'rack-test'
 gem 'rspec'
 gem 'database_cleaner'
 gem 'factory_bot'
+gem "typhoeus"
