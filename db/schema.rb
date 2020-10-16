@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2020_10_10_120000) do
   create_table "posts", force: :cascade do |t|
     t.string "title", null: false
     t.string "content", null: false
+    t.string "average_rating"
     t.cidr "ip", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"

@@ -13,7 +13,7 @@ module V1
       if result
         status 201
       else
-        error!({ messages: result.errors.full_messages }, 422)
+        error!({ error: result.errors.full_messages }, 422)
       end
     end
   end

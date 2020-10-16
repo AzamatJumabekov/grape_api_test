@@ -9,11 +9,17 @@ end
 
 user_ids = User.pluck(:id)
 
-entities_to_create(Post, 200_000).times do
+entities_to_create(Post, 1_000).times do
   Post.create(
     title: SecureRandom.hex(4),
     ip: "255.255.255.#{rand(1..50)}",
     content: SecureRandom.hex(50).scan(/.{1,6}/).join(' '),
     user_id: user_ids.sample
   )
+end
+
+post_ids = Post.pluck(:id)
+
+entities_to_create(Rating, 20_000).times do
+  ::Ratings::Create.new({value: rand(1..5), post_id: post_ids.sample}).call
 end

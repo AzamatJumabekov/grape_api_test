@@ -11,13 +11,13 @@ module V1
 
     post '/' do
       post = Post.find_by(id: params[:post_id])
-      error!({ messages: ['Post not found'] }, 404) && return unless post
+      error!({ error: 'Post not found or post_id parameter is missing' }, 404) && return unless post
 
-      result = Rating.create(declared(params))
-      if result
-        status 201
+      result = ::Ratings::Create.new(declared(params)).call
+      if result.success?
+        { average_rating: result.average }
       else
-        error!({ messages: result.errors.full_messages }, 422)
+        error!({ error: result.error }, 422)
       end
     end
   end
