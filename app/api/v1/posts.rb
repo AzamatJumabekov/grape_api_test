@@ -3,7 +3,6 @@ require_relative '../../../lib/grape/formatter/json'
 module V1
   class Posts < Grape::API
     get '/' do
-
       raw_query = <<-SQL
         select title, content
         from posts
@@ -37,14 +36,16 @@ module V1
         query = <<-SQL
           select json_agg(stst) AS json_array
           from(
-            select
-              ip,
-              json_agg(distinct users.login) as authors
-            from posts as p
-            inner join users on p.user_id = users.id
-            group by p.ip
-            having (count(users.id) > 1)
-            order by p.ip asc
+              select ip, json_agg(users.login) as authors
+              from (
+                   select user_id, ip
+                   from posts
+                   group by ip, user_id
+                   having count(user_id) > 1
+              ) as p
+              inner join users on p.user_id = users.id
+              group by ip
+              order by ip
           ) stst
         SQL
 

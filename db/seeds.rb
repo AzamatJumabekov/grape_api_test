@@ -50,7 +50,7 @@ end
 def create_ratings
   hydra = hydra_instance
   post_ids = Post.pluck(:id)
-  entities_to_create(Rating, 100_000).times do
+  entities_to_create(Rating, 1_000).times do
     params = { value: rand(1..5), post_id: post_ids.sample }
     add_to_queue(hydra, '/api/v1/ratings', params)
   end
