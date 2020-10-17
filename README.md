@@ -16,6 +16,10 @@ Setup:
 
 * `rake db:seed` to seed the db using requests
 
+Documentation:
+
+* Visit `/swagger_doc`
+
 Testing:
 
 ```shell

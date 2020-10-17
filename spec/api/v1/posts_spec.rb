@@ -44,13 +44,14 @@ describe '/api/v1/posts', type: :request do
 
     %i[title content ip].each do |param|
       describe "POST with missing #{param}" do
-        let(:expected) { {"error"=>"#{param} is missing"} }
+        let(:expected) { {"error"=>["#{param.capitalize} can't be blank"]} }
         before do
           params.delete(param)
         end
 
         it do
           post '/api/v1/posts', params
+          expect(last_response.status).to eq(422)
           expect(JSON.parse(last_response.body)).to eq(expected)
         end
       end

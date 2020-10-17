@@ -14,20 +14,20 @@ module V1
     end
 
     params do
-      requires :title, type: String
-      requires :content, type: String
-      requires :ip, type: String
+      optional :title, type: String
+      optional :content, type: String
+      optional :ip, type: String
     end
 
     post '/' do
       user = User.find_or_create_by(login: params.delete(:author))
 
-      error!({ error: user.errors.full_messages }, 404) && return if user.errors.any?
+      error!({ error: user.errors.full_messages }, 422) && return if user.errors.any?
       result = user.posts.create(declared(params))
       if result.errors.any?
         error!({ error: result.errors.full_messages }, 422)
       else
-        status 201
+        result
       end
     end
 
