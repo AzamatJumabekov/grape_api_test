@@ -1,6 +1,9 @@
+require_relative '../../../lib/grape/formatter/json'
+
 module V1
   class Posts < Grape::API
     get '/' do
+
       raw_query = <<-SQL
         select title, content
         from posts
@@ -29,22 +32,24 @@ module V1
       end
     end
 
-    get '/list_of_ips' do
-      query = <<-SQL
-        SELECT
-          ip,
-          json_agg(users.login) as authors
-        FROM posts as p
-        INNER JOIN users on users.id = p.user_id
-        GROUP BY p.ip
-        HAVING (count(users.id) >= 2)
-        ORDER BY p.ip asc;
-      SQL
+    resource '/list_of_ips' do
+      get '' do
+        query = <<-SQL
+          select json_agg(stst) AS json_array
+          from(
+            select
+              ip,
+              json_agg(distinct users.login) as authors
+            from posts as p
+            inner join users on p.user_id = users.id
+            group by p.ip
+            having (count(users.id) > 1)
+            order by p.ip asc
+          ) stst
+        SQL
 
-      result = ActiveRecord::Base.connection.execute(query)
-      # result.values.map do |ip, logins|
-      #   { ip => JSON[logins] }
-      # end
+        ActiveRecord::Base.connection.execute(query).values[0][0] || []
+      end
     end
   end
 end
