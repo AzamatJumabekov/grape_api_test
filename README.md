@@ -19,7 +19,7 @@ Setup:
 Testing:
 
 ```shell
-RACK_ENV=test rake db:createrake
+RACK_ENV=test rake db:create
 RACK_ENV=test rake db:migrate
 bundle exec rspec
 ```
