@@ -5,9 +5,6 @@ require 'multi_json'
 require 'multi_json/adapters/oj'
 MultiJson.adapter = MultiJson::Adapters::Oj
 
-TXT = File.read('/home/aza/response.json')
-
-
 ENV['RACK_ENV'] ||= 'development'
 ROOT_PATH ||= Pathname.new(::File.expand_path('../../', __FILE__)).freeze
 OTR::ActiveRecord.configure_from_file! "config/database.yml"
